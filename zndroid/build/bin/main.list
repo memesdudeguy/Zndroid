@@ -1,0 +1,891 @@
+zndroid_launcher.asm:6   (0x000000):                                                  #include "kernel.inc"
+kernel.inc          :4   (0x000000):                                                  .equ rkcall 0x08
+kernel.inc          :5   (0x000000):                                                  .equ rlcall 0x10
+kernel.inc          :6   (0x000000):                                                  .equ rpcall 0x20
+kernel.inc          :11  (0x000000):                                                  .macro kcall(addr)
+kernel.inc          :15  (0x000000):                                                  .macro kcall(cc, addr)
+kernel.inc          :19  (0x000000):                                                  .macro kjp(addr)
+kernel.inc          :23  (0x000000):                                                  .macro kjp(cc, addr)
+kernel.inc          :27  (0x000000):                                                  .macro kld(to, from)
+kernel.inc          :33  (0x000000):                                                  .macro lcall(id, addr)
+kernel.inc          :38  (0x000000):                                                  .macro lcall(id, cc, addr)
+kernel.inc          :43  (0x000000):                                                  .macro ljp(id, addr)
+kernel.inc          :48  (0x000000):                                                  .macro ljp(id, cc, addr)
+kernel.inc          :53  (0x000000):                                                  .macro lld(id, to, from)
+kernel.inc          :59  (0x000000):                                                  .macro icall(addr)
+kernel.inc          :64  (0x000000):                                                  .macro icall(cc, addr)
+kernel.inc          :69  (0x000000):                                                  .macro ijp(addr)
+kernel.inc          :74  (0x000000):                                                  .macro ijp(cc, addr)
+kernel.inc          :79  (0x000000):                                                  .macro ild(to, from)
+kernel.inc          :88  (0x000000):                                                  .macro pcall(function)
+kernel.inc          :98  (0x000000):                                                  .macro pcall(flags, function)
+kernel.inc          :102 (0x000000):                                                  .equ kDown 0x01
+kernel.inc          :103 (0x000000):                                                  .equ kLeft 0x02
+kernel.inc          :104 (0x000000):                                                  .equ kRight 0x03
+kernel.inc          :105 (0x000000):                                                  .equ kUp 0x04
+kernel.inc          :106 (0x000000):                                                  .equ kEnter 0x09
+kernel.inc          :106 (0x000000):                                                  .equ kEntry 0x09
+kernel.inc          :106 (0x000000):                                                  .equ kSolve 0x09
+kernel.inc          :107 (0x000000):                                                  .equ kPlus 0x0A
+kernel.inc          :107 (0x000000):                                                  .equ kMem 0x0A
+kernel.inc          :107 (0x000000):                                                  .equ kQuote 0x0A
+kernel.inc          :108 (0x000000):                                                  .equ kMinus 0x0B
+kernel.inc          :108 (0x000000):                                                  .equ kLSqBracket 0x0B
+kernel.inc          :108 (0x000000):                                                  .equ kW 0x0B
+kernel.inc          :109 (0x000000):                                                  .equ kMul 0x0C
+kernel.inc          :109 (0x000000):                                                  .equ kRSqBracket 0x0C
+kernel.inc          :109 (0x000000):                                                  .equ kR 0x0C
+kernel.inc          :110 (0x000000):                                                  .equ kDiv 0x0D
+kernel.inc          :110 (0x000000):                                                  .equ kVarE 0x0D
+kernel.inc          :110 (0x000000):                                                  .equ kM 0x0D
+kernel.inc          :111 (0x000000):                                                  .equ kPower 0x0E
+kernel.inc          :111 (0x000000):                                                  .equ kPi 0x0E
+kernel.inc          :111 (0x000000):                                                  .equ kH 0x0E
+kernel.inc          :112 (0x000000):                                                  .equ kClear 0x0F
+kernel.inc          :113 (0x000000):                                                  .equ kChs 0x11
+kernel.inc          :113 (0x000000):                                                  .equ kNeg 0x11
+kernel.inc          :113 (0x000000):                                                  .equ kAns 0x11
+kernel.inc          :113 (0x000000):                                                  .equ kQuestion 0x11
+kernel.inc          :114 (0x000000):                                                  .equ k3 0x12
+kernel.inc          :114 (0x000000):                                                  .equ kTheta 0x12
+kernel.inc          :114 (0x000000):                                                  .equ kL3 0x12
+kernel.inc          :115 (0x000000):                                                  .equ k6 0x13
+kernel.inc          :115 (0x000000):                                                  .equ kL6 0x13
+kernel.inc          :115 (0x000000):                                                  .equ kV 0x13
+kernel.inc          :116 (0x000000):                                                  .equ k9 0x14
+kernel.inc          :116 (0x000000):                                                  .equ kVarW 0x14
+kernel.inc          :116 (0x000000):                                                  .equ kQ 0x14
+kernel.inc          :117 (0x000000):                                                  .equ kRParen 0x15
+kernel.inc          :117 (0x000000):                                                  .equ kRBrace 0x15
+kernel.inc          :117 (0x000000):                                                  .equ kL 0x15
+kernel.inc          :118 (0x000000):                                                  .equ kTan 0x16
+kernel.inc          :118 (0x000000):                                                  .equ kInvTan 0x16
+kernel.inc          :118 (0x000000):                                                  .equ kG 0x16
+kernel.inc          :119 (0x000000):                                                  .equ kVars 0x17
+kernel.inc          :119 (0x000000):                                                  .equ kDistr 0x17
+kernel.inc          :120 (0x000000):                                                  .equ kDecPnt 0x19
+kernel.inc          :120 (0x000000):                                                  .equ kDot 0x19
+kernel.inc          :120 (0x000000):                                                  .equ kPeriod 0x19
+kernel.inc          :120 (0x000000):                                                  .equ kVarI 0x19
+kernel.inc          :120 (0x000000):                                                  .equ kImaginary 0x19
+kernel.inc          :120 (0x000000):                                                  .equ kColon 0x19
+kernel.inc          :121 (0x000000):                                                  .equ k2 0x1A
+kernel.inc          :121 (0x000000):                                                  .equ kL2 0x1A
+kernel.inc          :121 (0x000000):                                                  .equ kZ 0x1A
+kernel.inc          :122 (0x000000):                                                  .equ k5 0x1B
+kernel.inc          :122 (0x000000):                                                  .equ kL5 0x1B
+kernel.inc          :122 (0x000000):                                                  .equ kU 0x1B
+kernel.inc          :123 (0x000000):                                                  .equ k8 0x1C
+kernel.inc          :123 (0x000000):                                                  .equ kVarV 0x1C
+kernel.inc          :123 (0x000000):                                                  .equ kP 0x1C
+kernel.inc          :124 (0x000000):                                                  .equ kLParen 0x1D
+kernel.inc          :124 (0x000000):                                                  .equ kLBrace 0x1D
+kernel.inc          :124 (0x000000):                                                  .equ kK 0x1D
+kernel.inc          :125 (0x000000):                                                  .equ kCos 0x1E
+kernel.inc          :125 (0x000000):                                                  .equ kInvCos 0x1E
+kernel.inc          :125 (0x000000):                                                  .equ kF 0x1E
+kernel.inc          :126 (0x000000):                                                  .equ kPrgm 0x1F
+kernel.inc          :126 (0x000000):                                                  .equ kDraw 0x1F
+kernel.inc          :126 (0x000000):                                                  .equ kC 0x1F
+kernel.inc          :127 (0x000000):                                                  .equ kStat 0x20
+kernel.inc          :127 (0x000000):                                                  .equ kList 0x20
+kernel.inc          :128 (0x000000):                                                  .equ k0 0x21
+kernel.inc          :128 (0x000000):                                                  .equ kCatalog 0x21
+kernel.inc          :128 (0x000000):                                                  .equ kSpace 0x21
+kernel.inc          :129 (0x000000):                                                  .equ k1 0x22
+kernel.inc          :129 (0x000000):                                                  .equ kL1 0x22
+kernel.inc          :129 (0x000000):                                                  .equ kY 0x22
+kernel.inc          :130 (0x000000):                                                  .equ k4 0x23
+kernel.inc          :130 (0x000000):                                                  .equ kL4 0x23
+kernel.inc          :130 (0x000000):                                                  .equ kT 0x23
+kernel.inc          :131 (0x000000):                                                  .equ k7 0x24
+kernel.inc          :131 (0x000000):                                                  .equ kVarU 0x24
+kernel.inc          :131 (0x000000):                                                  .equ kO 0x24
+kernel.inc          :132 (0x000000):                                                  .equ kComma 0x25
+kernel.inc          :132 (0x000000):                                                  .equ kEE 0x25
+kernel.inc          :132 (0x000000):                                                  .equ kJ 0x25
+kernel.inc          :133 (0x000000):                                                  .equ kSin 0x26
+kernel.inc          :133 (0x000000):                                                  .equ kInvSin 0x26
+kernel.inc          :133 (0x000000):                                                  .equ kE 0x26
+kernel.inc          :134 (0x000000):                                                  .equ kApps 0x27
+kernel.inc          :134 (0x000000):                                                  .equ kAngle 0x27
+kernel.inc          :134 (0x000000):                                                  .equ kB 0x27
+kernel.inc          :135 (0x000000):                                                  .equ kGraphvar 0x28
+kernel.inc          :135 (0x000000):                                                  .equ kXTThetaN 0x28
+kernel.inc          :135 (0x000000):                                                  .equ kLink 0x28
+kernel.inc          :136 (0x000000):                                                  .equ kStore 0x2A
+kernel.inc          :136 (0x000000):                                                  .equ kRcl 0x2A
+kernel.inc          :136 (0x000000):                                                  .equ kX 0x2A
+kernel.inc          :137 (0x000000):                                                  .equ kLn 0x2B
+kernel.inc          :137 (0x000000):                                                  .equ kEx 0x2B
+kernel.inc          :137 (0x000000):                                                  .equ kS 0x2B
+kernel.inc          :138 (0x000000):                                                  .equ kLog 0x2C
+kernel.inc          :138 (0x000000):                                                  .equ k10x 0x2C
+kernel.inc          :138 (0x000000):                                                  .equ kN 0x2C
+kernel.inc          :139 (0x000000):                                                  .equ kSquare 0x2D
+kernel.inc          :139 (0x000000):                                                  .equ kXSqu 0x2D
+kernel.inc          :139 (0x000000):                                                  .equ kSqRoot 0x2D
+kernel.inc          :139 (0x000000):                                                  .equ kI 0x2D
+kernel.inc          :140 (0x000000):                                                  .equ kRecip 0x2E
+kernel.inc          :140 (0x000000):                                                  .equ kXNeg 0x2E
+kernel.inc          :140 (0x000000):                                                  .equ kMatrix 0x2E
+kernel.inc          :140 (0x000000):                                                  .equ kD 0x2E
+kernel.inc          :141 (0x000000):                                                  .equ kMath 0x2F
+kernel.inc          :141 (0x000000):                                                  .equ kA 0x2F
+kernel.inc          :141 (0x000000):                                                  .equ kTest 0x2F
+kernel.inc          :142 (0x000000):                                                  .equ kAlpha 0x30
+kernel.inc          :142 (0x000000):                                                  .equ kALock 0x30
+kernel.inc          :143 (0x000000):                                                  .equ kGraph 0x31
+kernel.inc          :143 (0x000000):                                                  .equ kTable 0x31
+kernel.inc          :143 (0x000000):                                                  .equ kF5 0x31
+kernel.inc          :144 (0x000000):                                                  .equ kTrace 0x32
+kernel.inc          :144 (0x000000):                                                  .equ kCalc 0x32
+kernel.inc          :144 (0x000000):                                                  .equ kF4 0x32
+kernel.inc          :145 (0x000000):                                                  .equ kZoom 0x33
+kernel.inc          :145 (0x000000):                                                  .equ kFormat 0x33
+kernel.inc          :145 (0x000000):                                                  .equ kF3 0x33
+kernel.inc          :146 (0x000000):                                                  .equ kWindow 0x34
+kernel.inc          :146 (0x000000):                                                  .equ kTblSet 0x34
+kernel.inc          :146 (0x000000):                                                  .equ kTableSet 0x34
+kernel.inc          :146 (0x000000):                                                  .equ kF2 0x34
+kernel.inc          :147 (0x000000):                                                  .equ kYEqu 0x35
+kernel.inc          :147 (0x000000):                                                  .equ kStatPlot 0x35
+kernel.inc          :147 (0x000000):                                                  .equ kF1 0x35
+kernel.inc          :148 (0x000000):                                                  .equ k2nd 0x36
+kernel.inc          :149 (0x000000):                                                  .equ kMode 0x37
+kernel.inc          :149 (0x000000):                                                  .equ kQuite 0x37
+kernel.inc          :150 (0x000000):                                                  .equ kDel 0x38
+kernel.inc          :150 (0x000000):                                                  .equ kIns 0x38
+kernel.inc          :150 (0x000000):                                                  .equ kDelete 0x38
+kernel.inc          :154 (0x000000):                                                  .equ FP_ZERO 0
+kernel.inc          :155 (0x000000):                                                  .equ FP_ONE 1
+kernel.inc          :156 (0x000000):                                                  .equ FP_PI 2
+kernel.inc          :157 (0x000000):                                                  .equ FP_PI_OVER_2 3
+kernel.inc          :158 (0x000000):                                                  .equ FP_PI_OVER_4 4
+kernel.inc          :159 (0x000000):                                                  .equ FP_PI_OVER_180 5
+kernel.inc          :160 (0x000000):                                                  .equ FP_180_OVER_PI 6
+kernel.inc          :161 (0x000000):                                                  .equ FP_E 7
+kernel.inc          :162 (0x000000):                                                  .equ FP_LOG_E 8
+kernel.inc          :163 (0x000000):                                                  .equ FP_LN_10 9
+kernel.inc          :166 (0x000000):                                                  .equ FP_STR_INV_PUNC 1<<7
+kernel.inc          :167 (0x000000):                                                  .equ FP_GROUP_DIGITS 1<<6
+kernel.inc          :168 (0x000000):                                                  .equ FP_DISP_NORMAL 0
+kernel.inc          :169 (0x000000):                                                  .equ FP_DISP_SCIENTIFIC 1<<4
+kernel.inc          :172 (0x000000):                                                  .equ nullThread 0xFF
+kernel.inc          :173 (0x000000):                                                  .equ errOutOfMem 1
+kernel.inc          :174 (0x000000):                                                  .equ errTooManyThreads 2
+kernel.inc          :175 (0x000000):                                                  .equ errStreamNotFound 3
+kernel.inc          :176 (0x000000):                                                  .equ errEndOfStream 4
+kernel.inc          :177 (0x000000):                                                  .equ errFileNotFound 5
+kernel.inc          :178 (0x000000):                                                  .equ errTooManyStreams 6
+kernel.inc          :179 (0x000000):                                                  .equ errNoSuchThread 7
+kernel.inc          :180 (0x000000):                                                  .equ errTooManyLibraries 8
+kernel.inc          :181 (0x000000):                                                  .equ errUnsupported 9
+kernel.inc          :182 (0x000000):                                                  .equ errTooManySignals 10
+kernel.inc          :183 (0x000000):                                                  .equ errFilesystemFull 11
+kernel.inc          :184 (0x000000):                                                  .equ errNameTooLong 12
+kernel.inc          :185 (0x000000):                                                  .equ errAlreadyExists 13
+kernel.inc          :186 (0x000000):                                                  .equ errNoMagic 14
+kernel.inc          :187 (0x000000):                                                  .equ errNoHeader 15
+kernel.inc          :188 (0x000000):                                                  .equ errNoEntryPoint 15
+kernel.inc          :189 (0x000000):                                                  .equ errKernelMismatch 15
+kernel.inc          :190 (0x000000):                                                  .equ errMutexNotLocked 16
+kernel.inc          :191 (0x000000):                                                  .equ errReadOnly 17
+kernel.inc          :192 (0x000000):                                                  .equ errNotAFile 18
+kernel.inc          :193 (0x000000):                                                  .equ errNotADirectory 18
+kernel.inc          :195 (0x000000):                                                  .equ threadRangeMask 0b11111
+kernel.inc          :198 (0x000000):                                                  .equ fsEndOfTable 0xFF
+kernel.inc          :199 (0x000000):                                                  .equ fsFile 0x7F
+kernel.inc          :200 (0x000000):                                                  .equ fsDirectory 0xBF
+kernel.inc          :201 (0x000000):                                                  .equ fsSymLink 0xDF
+kernel.inc          :202 (0x000000):                                                  .equ fsDeletedFile 0x00
+kernel.inc          :203 (0x000000):                                                  .equ fsModifiedFile 0x01
+kernel.inc          :204 (0x000000):                                                  .equ fsDeletedDirectory 0x02
+kernel.inc          :205 (0x000000):                                                  .equ fsModifiedDirectory 0x04
+kernel.inc          :206 (0x000000):                                                  .equ fsDeletedSymLink 0x08
+kernel.inc          :208 (0x000000):                                                  .equ panic_init_not_found 0
+kernel.inc          :209 (0x000000):                                                  .equ panic_no_threads 1
+kernel.inc          :210 (0x000000):                                                  .equ panic_no_active_threads 2
+kernel.inc          :211 (0x000000):                                                  .equ panic_library_not_found 3
+kernel.inc          :212 (0x000000):                                                  .equ panic_failed_init 4
+kernel.inc          :217 (0x000000):                                                  .equ KEXC_HEADER_END 0x00
+kernel.inc          :218 (0x000000):                                                  .equ KEXC_ENTRY_POINT 0x01
+kernel.inc          :219 (0x000000):                                                  .equ KEXC_STACK_SIZE 0x02
+kernel.inc          :220 (0x000000):                                                  .equ KEXC_KERNEL_VER 0x03
+kernel.inc          :221 (0x000000):                                                  .equ KEXC_THREAD_FLAGS 0x04
+kernel.inc          :222 (0x000000):                                                  .equ KEXC_NAME 0x05
+kernel.inc          :223 (0x000000):                                                  .equ KEXC_DESCRIPTION 0x06
+kernel.inc          :226 (0x000000):                                                  .equ THREAD_NON_SUSPENDABLE 2
+kernel.inc          :228 (0x000000):                                                  .equ THREAD_COLOR 8
+kernel.inc          :231 (0x000000):                                                  .equ kernelVersion 0x64
+kernel.inc          :234 (0x000000):                                                  .equ maxThreads 32
+kernel.inc          :235 (0x000000):                                                  .equ maxLibraries 16
+kernel.inc          :236 (0x000000):                                                  .equ maxSignals 16
+kernel.inc          :237 (0x000000):                                                  .equ maxFileStreams 8
+kernel.inc          :238 (0x000000):                                                  .equ kernelGarbageSize 0x200
+kernel.inc          :239 (0x000000):                                                  .equ flashFunctionSize 0x100
+kernel.inc          :240 (0x000000):                                                  .equ stateMemorySize 0x100
+kernel.inc          :242 (0x000000):                                                  .equ kernelMem 0x8000
+kernel.inc          :244 (0x000000):                                                  .equ threadTable kernelMem
+kernel.inc          :245 (0x000000):                                                  .equ threadTableSize 8 * maxThreads
+kernel.inc          :247 (0x000000):                                                  .equ libraryTable threadTable + threadTableSize
+kernel.inc          :248 (0x000000):                                                  .equ libraryTableSize 4 * maxLibraries
+kernel.inc          :250 (0x000000):                                                  .equ signalTable libraryTable + libraryTableSize
+kernel.inc          :251 (0x000000):                                                  .equ signalTableSize 4 * maxSignals
+kernel.inc          :253 (0x000000):                                                  .equ fileHandleTable signalTable + signalTableSize
+kernel.inc          :254 (0x000000):                                                  .equ fileHandleTableSize 16 * maxFileStreams
+kernel.inc          :256 (0x000000):                                                  .equ kernelTablesSize threadTableSize + libraryTableSize + signalTableSize + fileHandleTableSize
+kernel.inc          :258 (0x000000):                                                  .equ stateMemory kernelMem + kernelTablesSize
+kernel.inc          :260 (0x000000):                                                  .equ currentThreadIndex stateMemory
+kernel.inc          :261 (0x000000):                                                  .equ activeThreads currentThreadIndex + 1
+kernel.inc          :262 (0x000000):                                                  .equ loadedLibraries activeThreads + 1
+kernel.inc          :263 (0x000000):                                                  .equ activeSignals loadedLibraries + 1
+kernel.inc          :264 (0x000000):                                                  .equ activeFileStreams activeSignals + 1
+kernel.inc          :265 (0x000000):                                                  .equ lastThreadId activeFileStreams + 1
+kernel.inc          :267 (0x000000):                                                  .equ hwLockIO lastThreadId + 1
+kernel.inc          :268 (0x000000):                                                  .equ hwLockLCD hwLockIO + 1
+kernel.inc          :269 (0x000000):                                                  .equ hwLockKeypad hwLockLCD + 1
+kernel.inc          :270 (0x000000):                                                  .equ hwLockUSB hwLockKeypad + 1
+kernel.inc          :273 (0x000000):                                                  .equ currentContrast hwLockUSB + 1
+kernel.inc          :274 (0x000000):                                                  .equ bcallHook currentContrast + 1
+kernel.inc          :278 (0x000000):                                                  .equ clip_mask currentContrast + 2
+kernel.inc          :280 (0x000000):                                                  .equ color_mode clip_mask + 1
+kernel.inc          :282 (0x000000):                                                  .equ random_seed color_mode + 1
+kernel.inc          :285 (0x000000):                                                  .equ kernel_current_time random_seed + 8
+kernel.inc          :288 (0x000000):                                                  .equ io_header_buffer kernel_current_time + 2
+kernel.inc          :289 (0x000000):                                                  .equ io_header_ix io_header_buffer + 4
+kernel.inc          :290 (0x000000):                                                  .equ io_last_byte_time io_header_ix + 1
+kernel.inc          :291 (0x000000):                                                  .equ io_bulk_buffer io_last_byte_time + 2
+kernel.inc          :292 (0x000000):                                                  .equ io_bulk_buffer_bak io_bulk_buffer + 2
+kernel.inc          :293 (0x000000):                                                  .equ io_bulk_len io_bulk_buffer_bak + 2
+kernel.inc          :294 (0x000000):                                                  .equ io_bulk_callback io_bulk_len + 2
+kernel.inc          :295 (0x000000):                                                  .equ io_bulk_callback_thread io_bulk_callback + 2
+kernel.inc          :297 (0x000000):                                                  .equ kbd_scan_len io_bulk_callback_thread + 1
+kernel.inc          :298 (0x000000):                                                  .equ kbd_scan_queue kbd_scan_len + 1
+kernel.inc          :300 (0x000000):                                                  .equ io_tx_header kbd_scan_queue + 16
+kernel.inc          :301 (0x000000):                                                  .equ io_tx_header_ix io_tx_header + 4
+kernel.inc          :302 (0x000000):                                                  .equ io_send_queue io_tx_header_ix + 1
+kernel.inc          :303 (0x000000):                                                  .equ io_send_queue_bak io_send_queue + 2
+kernel.inc          :304 (0x000000):                                                  .equ io_send_remain io_send_queue_bak + 2
+kernel.inc          :305 (0x000000):                                                  .equ io_send_callback io_send_remain + 2
+kernel.inc          :306 (0x000000):                                                  .equ io_send_callback_thread io_send_callback + 2
+kernel.inc          :307 (0x000000):                                                  .equ io_header_handlers io_send_callback_thread + 1
+kernel.inc          :308 (0x000000):                                                  .equ io_checksum io_header_handlers + 2
+kernel.inc          :310 (0x000000):                                                  .equ stateUsed io_header_handlers + 2 - stateMemory
+kernel.inc          :312 (0x000000):                                                  .equ flashFunctions stateMemory + stateMemorySize
+kernel.inc          :313 (0x000000):                                                  .equ kernelGarbage flashFunctions + flashFunctionSize
+kernel.inc          :315 (0x000000):                                                  .equ userMemory kernelGarbage + kernelGarbageSize
+kernel.inc          :316 (0x000000):                                                  .equ userMemorySize 0xFFFF - userMemory
+kernel.inc          :317 (0x000000):                                                  .equ BOOT 0x0000
+kernel.inc          :318 (0x000000):                                                  .equ REBOOT 0x0100
+kernel.inc          :319 (0x000000):                                                  .equ SUSPENDDEVICE 0x0200
+kernel.inc          :320 (0x000000):                                                  .equ MALLOC 0x0300
+kernel.inc          :321 (0x000000):                                                  .equ FREE 0x0400
+kernel.inc          :322 (0x000000):                                                  .equ CALLOC 0x0500
+kernel.inc          :323 (0x000000):                                                  .equ MEMSET 0x0600
+kernel.inc          :324 (0x000000):                                                  .equ MEMCHECK 0x0700
+kernel.inc          :325 (0x000000):                                                  .equ MEMSEEKTOSTART 0x0800
+kernel.inc          :326 (0x000000):                                                  .equ MEMSEEKTOEND 0x0900
+kernel.inc          :327 (0x000000):                                                  .equ REASSIGNMEMORY 0x0A00
+kernel.inc          :328 (0x000000):                                                  .equ LOADLIBRARY 0x0B00
+kernel.inc          :329 (0x000000):                                                  .equ CONTEXTSWITCH 0x0C00
+kernel.inc          :330 (0x000000):                                                  .equ STARTTHREAD 0x0D00
+kernel.inc          :331 (0x000000):                                                  .equ LAUNCHPROGRAM 0x0E00
+kernel.inc          :332 (0x000000):                                                  .equ GETCURRENTTHREADID 0x0F00
+kernel.inc          :333 (0x000000):                                                  .equ EXITTHREAD 0x1000
+kernel.inc          :334 (0x000000):                                                  .equ KILLTHREAD 0x1100
+kernel.inc          :335 (0x000000):                                                  .equ KILLCURRENTTHREAD 0x1200
+kernel.inc          :336 (0x000000):                                                  .equ GETENTRYPOINT 0x1300
+kernel.inc          :337 (0x000000):                                                  .equ SETRETURNPOINT 0x1400
+kernel.inc          :338 (0x000000):                                                  .equ SUSPENDCURRENTTHREAD 0x1500
+kernel.inc          :339 (0x000000):                                                  .equ RESUMETHREAD 0x1600
+kernel.inc          :340 (0x000000):                                                  .equ SETINITIALHL 0x1700
+kernel.inc          :341 (0x000000):                                                  .equ SETINITIALDE 0x1800
+kernel.inc          :342 (0x000000):                                                  .equ CREATESIGNAL 0x1900
+kernel.inc          :343 (0x000000):                                                  .equ READSIGNAL 0x1A00
+kernel.inc          :344 (0x000000):                                                  .equ SETINITIALBC 0x1B00
+kernel.inc          :345 (0x000000):                                                  .equ SETINITIALA 0x1C00
+kernel.inc          :346 (0x000000):                                                  .equ SETINITIALIX 0x1D00
+kernel.inc          :347 (0x000000):                                                  .equ SETINITIALIY 0x1E00
+kernel.inc          :348 (0x000000):                                                  .equ GETTHREADHEADER 0x1F00
+kernel.inc          :349 (0x000000):                                                  .equ CHECKTHREAD 0x2000
+kernel.inc          :350 (0x000000):                                                  .equ WAITKEY 0x2100
+kernel.inc          :351 (0x000000):                                                  .equ GETKEY 0x2200
+kernel.inc          :352 (0x000000):                                                  .equ FLUSHKEYS 0x2300
+kernel.inc          :353 (0x000000):                                                  .equ FASTCOPY 0x2400
+kernel.inc          :354 (0x000000):                                                  .equ LCDDELAY 0x2500
+kernel.inc          :355 (0x000000):                                                  .equ GETBATTERYLEVEL 0x2600
+kernel.inc          :356 (0x000000):                                                  .equ GETLCDLOCK 0x2700
+kernel.inc          :357 (0x000000):                                                  .equ GETKEYPADLOCK 0x2800
+kernel.inc          :358 (0x000000):                                                  .equ GETIOLOCK 0x2900
+kernel.inc          :359 (0x000000):                                                  .equ GETUSBLOCK 0x2A00
+kernel.inc          :360 (0x000000):                                                  .equ HASLCDLOCK 0x2B00
+kernel.inc          :361 (0x000000):                                                  .equ HASKEYPADLOCK 0x2C00
+kernel.inc          :362 (0x000000):                                                  .equ HASIOLOCK 0x2D00
+kernel.inc          :363 (0x000000):                                                  .equ HASUSBLOCK 0x2E00
+kernel.inc          :364 (0x000000):                                                  .equ UNLOCKFLASH 0x2F00
+kernel.inc          :365 (0x000000):                                                  .equ LOCKFLASH 0x3000
+kernel.inc          :366 (0x000000):                                                  .equ COPYFLASHPAGE 0x3100
+kernel.inc          :367 (0x000000):                                                  .equ COPYFLASHEXCEPT 0x3200
+kernel.inc          :368 (0x000000):                                                  .equ COPYSECTORTOSWAP 0x3300
+kernel.inc          :369 (0x000000):                                                  .equ ERASEFLASHSECTOR 0x3400
+kernel.inc          :370 (0x000000):                                                  .equ ERASEFLASHPAGE 0x3500
+kernel.inc          :371 (0x000000):                                                  .equ WRITEFLASHBUFFER 0x3600
+kernel.inc          :372 (0x000000):                                                  .equ WRITEFLASHBYTE 0x3700
+kernel.inc          :373 (0x000000):                                                  .equ ERASESWAPSECTOR 0x3800
+kernel.inc          :374 (0x000000):                                                  .equ FINDFILEENTRY 0x3900
+kernel.inc          :375 (0x000000):                                                  .equ FINDDIRECTORYENTRY 0x3A00
+kernel.inc          :376 (0x000000):                                                  .equ FILEEXISTS 0x3B00
+kernel.inc          :377 (0x000000):                                                  .equ DIRECTORYEXISTS 0x3C00
+kernel.inc          :378 (0x000000):                                                  .equ DELETEFILE 0x3D00
+kernel.inc          :379 (0x000000):                                                  .equ CREATEDIRECTORY 0x3E00
+kernel.inc          :380 (0x000000):                                                  .equ LISTDIRECTORY 0x3F00
+kernel.inc          :381 (0x000000):                                                  .equ CHECKKFS 0x4000
+kernel.inc          :382 (0x000000):                                                  .equ FIXKFS 0x4100
+kernel.inc          :383 (0x000000):                                                  .equ OPENFILEREAD 0x4200
+kernel.inc          :384 (0x000000):                                                  .equ OPENFILEWRITE 0x4300
+kernel.inc          :385 (0x000000):                                                  .equ FLUSH 0x4400
+kernel.inc          :386 (0x000000):                                                  .equ CLOSESTREAM 0x4500
+kernel.inc          :387 (0x000000):                                                  .equ STREAMREADBYTE 0x4600
+kernel.inc          :388 (0x000000):                                                  .equ STREAMREADWORD 0x4700
+kernel.inc          :389 (0x000000):                                                  .equ STREAMREADBUFFER 0x4800
+kernel.inc          :390 (0x000000):                                                  .equ STREAMREADTOEND 0x4900
+kernel.inc          :391 (0x000000):                                                  .equ GETSTREAMINFO 0x4A00
+kernel.inc          :392 (0x000000):                                                  .equ SEEK 0x4B00
+kernel.inc          :393 (0x000000):                                                  .equ ALLOCSCREENBUFFER 0x4C00
+kernel.inc          :394 (0x000000):                                                  .equ FREESCREENBUFFER 0x4D00
+kernel.inc          :395 (0x000000):                                                  .equ CLEARBUFFER 0x4E00
+kernel.inc          :396 (0x000000):                                                  .equ DRAWLINE 0x4F00
+kernel.inc          :397 (0x000000):                                                  .equ RECTOR 0x5000
+kernel.inc          :398 (0x000000):                                                  .equ PUTSPRITEOR 0x5100
+kernel.inc          :399 (0x000000):                                                  .equ PUTSPRITEAND 0x5200
+kernel.inc          :400 (0x000000):                                                  .equ PUTSPRITEXOR 0x5300
+kernel.inc          :401 (0x000000):                                                  .equ PUTSPRITE16XOR 0x5400
+kernel.inc          :402 (0x000000):                                                  .equ PUTSPRITE16OR 0x5500
+kernel.inc          :403 (0x000000):                                                  .equ PUTSPRITE16AND 0x5600
+kernel.inc          :404 (0x000000):                                                  .equ COLORSUPPORTED 0x5700
+kernel.inc          :405 (0x000000):                                                  .equ CLEARCOLORLCD 0x5800
+kernel.inc          :406 (0x000000):                                                  .equ SETLEGACYLCDMODE 0x5900
+kernel.inc          :407 (0x000000):                                                  .equ RESETLEGACYLCDMODE 0x5A00
+kernel.inc          :408 (0x000000):                                                  .equ CHECKLEGACYLCDMODE 0x5B00
+kernel.inc          :409 (0x000000):                                                  .equ COLORLCDON 0x5C00
+kernel.inc          :410 (0x000000):                                                  .equ COLORLCDOFF 0x5D00
+kernel.inc          :411 (0x000000):                                                  .equ COLORLCDWAIT 0x5E00
+kernel.inc          :412 (0x000000):                                                  .equ READLCDREGISTER 0x5F00
+kernel.inc          :413 (0x000000):                                                  .equ WRITELCDREGISTER 0x6000
+kernel.inc          :414 (0x000000):                                                  .equ CLIPCOLORRECTANGLE 0x6100
+kernel.inc          :415 (0x000000):                                                  .equ FULLSCREENWINDOW 0x6200
+kernel.inc          :416 (0x000000):                                                  .equ SETLCDWINDOW 0x6300
+kernel.inc          :417 (0x000000):                                                  .equ CPHLDE 0x6400
+kernel.inc          :418 (0x000000):                                                  .equ CPHLBC 0x6500
+kernel.inc          :419 (0x000000):                                                  .equ CPBCDE 0x6600
+kernel.inc          :420 (0x000000):                                                  .equ SMUL16BY8 0x6700
+kernel.inc          :421 (0x000000):                                                  .equ MUL8BY8 0x6800
+kernel.inc          :422 (0x000000):                                                  .equ MUL16BY8 0x6900
+kernel.inc          :423 (0x000000):                                                  .equ MUL16BY16 0x6A00
+kernel.inc          :424 (0x000000):                                                  .equ MUL32BY8 0x6B00
+kernel.inc          :425 (0x000000):                                                  .equ DIV8BY8 0x6C00
+kernel.inc          :426 (0x000000):                                                  .equ DIV32BY16 0x6D00
+kernel.inc          :427 (0x000000):                                                  .equ SUB16FROM32 0x6E00
+kernel.inc          :428 (0x000000):                                                  .equ DIVHLBYC 0x6F00
+kernel.inc          :429 (0x000000):                                                  .equ DIVACBYDE 0x7000
+kernel.inc          :430 (0x000000):                                                  .equ SDIVACBYDE 0x7100
+kernel.inc          :431 (0x000000):                                                  .equ SMIN 0x7200
+kernel.inc          :432 (0x000000):                                                  .equ SMAX 0x7300
+kernel.inc          :433 (0x000000):                                                  .equ ISIN 0x7400
+kernel.inc          :434 (0x000000):                                                  .equ ICOS 0x7500
+kernel.inc          :435 (0x000000):                                                  .equ GETBOOTCODEVERSIONSTRING 0x7600
+kernel.inc          :436 (0x000000):                                                  .equ HEXTOA 0x7700
+kernel.inc          :437 (0x000000):                                                  .equ HEXTOHL 0x7800
+kernel.inc          :438 (0x000000):                                                  .equ INDIRECT16HL 0x7900
+kernel.inc          :439 (0x000000):                                                  .equ INDIRECT16HLDE 0x7A00
+kernel.inc          :440 (0x000000):                                                  .equ CPHLDE_SORT 0x7B00
+kernel.inc          :441 (0x000000):                                                  .equ SLEEP 0x7C00
+kernel.inc          :442 (0x000000):                                                  .equ GETKERNELMAJORVERSION 0x7D00
+kernel.inc          :443 (0x000000):                                                  .equ GETKERNELMINORVERSION 0x7E00
+kernel.inc          :444 (0x000000):                                                  .equ GETKERNELPATCHNUMBER 0x7F00
+kernel.inc          :445 (0x000000):                                                  .equ GETKERNELCOMMITSSINCETAG 0x8000
+kernel.inc          :446 (0x000000):                                                  .equ GETKERNELSHORTHASH 0x8100
+kernel.inc          :447 (0x000000):                                                  .equ ISKERNELDIRTY 0x8200
+kernel.inc          :448 (0x000000):                                                  .equ ISALPHANUM 0x8300
+kernel.inc          :449 (0x000000):                                                  .equ GETRANDOM 0x8400
+kernel.inc          :450 (0x000000):                                                  .equ STRLEN 0x8500
+kernel.inc          :451 (0x000000):                                                  .equ STRCPY 0x8600
+kernel.inc          :452 (0x000000):                                                  .equ STRCMP 0x8700
+kernel.inc          :453 (0x000000):                                                  .equ STRCMP_SORT 0x8800
+kernel.inc          :454 (0x000000):                                                  .equ STRCHR 0x8900
+kernel.inc          :455 (0x000000):                                                  .equ STRTOI 0x8A00
+kernel.inc          :456 (0x000000):                                                  .equ TOLOWER 0x8B00
+kernel.inc          :457 (0x000000):                                                  .equ TOUPPER 0x8C00
+kernel.inc          :458 (0x000000):                                                  .equ CRC16_INIT 0x8D00
+kernel.inc          :459 (0x000000):                                                  .equ CRC16_UPDATEBYTE 0x8E00
+kernel.inc          :460 (0x000000):                                                  .equ CRC16_UPDATEBUFFER 0x8F00
+kernel.inc          :461 (0x000000):                                                  .equ MUTEXINIT 0x9000
+kernel.inc          :462 (0x000000):                                                  .equ MUTEXLOCK 0x9100
+kernel.inc          :463 (0x000000):                                                  .equ MUTEXUNLOCK 0x9200
+kernel.inc          :464 (0x000000):                                                  .equ CONDINIT 0x9300
+kernel.inc          :465 (0x000000):                                                  .equ CONDWAIT 0x9400
+kernel.inc          :466 (0x000000):                                                  .equ CONDNOTIFYALL 0x9500
+kernel.inc          :467 (0x000000):                                                  .equ CONDNOTIFYONE 0x9600
+kernel.inc          :468 (0x000000):                                                  .equ REALLOC 0x9700
+kernel.inc          :469 (0x000000):                                                  .equ MEMORYAVAILABLE 0x9800
+kernel.inc          :470 (0x000000):                                                  .equ STREAMWRITEBYTE 0x9900
+kernel.inc          :471 (0x000000):                                                  .equ STREAMWRITEWORD 0x9A00
+kernel.inc          :472 (0x000000):                                                  .equ STREAMWRITEBUFFER 0x9B00
+kernel.inc          :473 (0x000000):                                                  .equ CREATESYMLINK 0x9C00
+kernel.inc          :474 (0x000000):                                                  .equ GETSTREAMPOS 0x9D00
+kernel.inc          :475 (0x000000):                                                  .equ GETBOOTPAGE 0x9E00
+kernel.inc          :476 (0x000000):                                                  .equ ADD16TO32 0x9F00
+kernel.inc          :477 (0x000000):                                                  .equ GETNEXTTHREADID 0xA000
+kernel.inc          :478 (0x000000):                                                  .equ GETSCANCODE 0xA100
+kernel.inc          :479 (0x000000):                                                  .equ IOSENDPACKET 0xA200
+kernel.inc          :480 (0x000000):                                                  .equ IOREGISTERHANDLER 0xA300
+kernel.inc          :481 (0x000000):                                                  .equ RENAMEFILE 0xA400
+kernel.inc          :482 (0x000000):                                                  .equ NEWLINE 0x0001
+kernel.inc          :483 (0x000000):                                                  .equ DRAWCHAR 0x0101
+kernel.inc          :484 (0x000000):                                                  .equ DRAWCHARAND 0x0201
+kernel.inc          :485 (0x000000):                                                  .equ DRAWCHARXOR 0x0301
+kernel.inc          :486 (0x000000):                                                  .equ DRAWSTR 0x0401
+kernel.inc          :487 (0x000000):                                                  .equ DRAWSTRAND 0x0501
+kernel.inc          :488 (0x000000):                                                  .equ DRAWSTRXOR 0x0601
+kernel.inc          :489 (0x000000):                                                  .equ WRAPSTR 0x0701
+kernel.inc          :490 (0x000000):                                                  .equ WRAPSTRAND 0x0801
+kernel.inc          :491 (0x000000):                                                  .equ WRAPSTRXOR 0x0901
+kernel.inc          :492 (0x000000):                                                  .equ DRAWHEXA 0x0A01
+kernel.inc          :493 (0x000000):                                                  .equ DRAWDECA 0x0B01
+kernel.inc          :494 (0x000000):                                                  .equ MEASURECHAR 0x0C01
+kernel.inc          :495 (0x000000):                                                  .equ MEASURESTR 0x0D01
+kernel.inc          :496 (0x000000):                                                  .equ DRAWHEXHL 0x0E01
+kernel.inc          :497 (0x000000):                                                  .equ DRAWDECHL 0x0F01
+kernel.inc          :498 (0x000000):                                                  .equ DRAWDECACIX 0x1001
+kernel.inc          :499 (0x000000):                                                  .equ SHA1INIT 0x0002
+kernel.inc          :500 (0x000000):                                                  .equ SHA1CLEAN 0x0102
+kernel.inc          :501 (0x000000):                                                  .equ SHA1ADDBYTE 0x0202
+kernel.inc          :502 (0x000000):                                                  .equ SHA1ADDRANGE 0x0302
+kernel.inc          :503 (0x000000):                                                  .equ SHA1PAD 0x0402
+kernel.inc          :504 (0x000000):                                                  .equ GETTIMEINTICKS 0x0502
+kernel.inc          :505 (0x000000):                                                  .equ SETCLOCK 0x0602
+kernel.inc          :506 (0x000000):                                                  .equ GETTIME 0x0702
+kernel.inc          :507 (0x000000):                                                  .equ CONVERTTIMEFROMTICKS 0x0802
+kernel.inc          :508 (0x000000):                                                  .equ CONVERTTIMETOTICKS 0x0902
+kernel.inc          :509 (0x000000):                                                  .equ RLECOMPRESS 0x0A02
+kernel.inc          :510 (0x000000):                                                  .equ RLEDECOMPRESS 0x0B02
+kernel.inc          :511 (0x000000):                                                  .equ RLECALCULATECOMPRESSEDLENGTH 0x0C02
+kernel.inc          :512 (0x000000):                                                  .equ RLECALCULATEDECOMPRESSEDLENGTH 0x0D02
+kernel.inc          :513 (0x000000):                                                  .equ INTEGERSORT 0x0E02
+kernel.inc          :514 (0x000000):                                                  .equ CALLBACKSORT 0x0F02
+kernel.inc          :515 (0x000000):                                                  .equ GETPIXEL 0x1002
+kernel.inc          :516 (0x000000):                                                  .equ SETPIXEL 0x1102
+kernel.inc          :517 (0x000000):                                                  .equ RESETPIXEL 0x1202
+kernel.inc          :518 (0x000000):                                                  .equ INVERTPIXEL 0x1302
+kernel.inc          :519 (0x000000):                                                  .equ DRAWVLINE 0x1402
+kernel.inc          :520 (0x000000):                                                  .equ RECTXOR 0x1502
+kernel.inc          :521 (0x000000):                                                  .equ RECTAND 0x1602
+kernel.inc          :522 (0x000000):                                                  .equ DRAWVLINEAND 0x1702
+kernel.inc          :523 (0x000000):                                                  .equ CLOCKSUPPORTED 0x1802
+kernel.inc          :524 (0x000000):                                                  .equ ISLEAPYEAR 0x1902
+kernel.inc          :525 (0x000000):                                                  .equ MONTHLENGTH 0x1A02
+kernel.inc          :526 (0x000000):                                                  .equ ITOSTR 0x1B02
+kernel.inc          :527 (0x000000):                                                  .equ ITOFP 0x1C02
+kernel.inc          :528 (0x000000):                                                  .equ STRTOFP 0x1D02
+kernel.inc          :529 (0x000000):                                                  .equ FPTOSTR 0x1E02
+kernel.inc          :530 (0x000000):                                                  .equ FPLDCONST 0x1F02
+kernel.inc          :531 (0x000000):                                                  .equ FPADD 0x2002
+kernel.inc          :532 (0x000000):                                                  .equ FPSUB 0x2102
+kernel.inc          :533 (0x000000):                                                  .equ FPMULPOW10 0x2202
+kernel.inc          :534 (0x000000):                                                  .equ FPAND 0x2302
+kernel.inc          :535 (0x000000):                                                  .equ FPOR 0x2402
+kernel.inc          :536 (0x000000):                                                  .equ FPXOR 0x2502
+kernel.inc          :537 (0x000000):                                                  .equ FPNOT 0x2602
+kernel.inc          :538 (0x000000):                                                  .equ FPNEG 0x2702
+kernel.inc          :539 (0x000000):                                                  .equ FPABS 0x2802
+kernel.inc          :540 (0x000000):                                                  .equ FPCOMPARE 0x2902
+kernel.inc          :541 (0x000000):                                                  .equ FPMIN 0x2A02
+kernel.inc          :542 (0x000000):                                                  .equ FPMAX 0x2B02
+kernel.inc          :543 (0x000000):                                                  .equ FPIPART 0x2C02
+kernel.inc          :544 (0x000000):                                                  .equ FPFPART 0x2D02
+kernel.inc          :545 (0x000000):                                                  .equ FPRAND 0x2E02
+zndroid_launcher.asm:8   (0x000000):                                                  .db "KEXC"
+zndroid_launcher.asm:9   (0x000004):                                                  .db KEXC_ENTRY_POINT
+zndroid_launcher.asm:10  (0x000005):                                                  .dw start
+zndroid_launcher.asm:11  (0x000007):                                                  .db KEXC_STACK_SIZE
+zndroid_launcher.asm:12  (0x000008):                                                  .dw 64
+zndroid_launcher.asm:13  (0x00000A):                                                  .db KEXC_NAME
+zndroid_launcher.asm:14  (0x00000B):                                                  .dw appName
+zndroid_launcher.asm:15  (0x00000D):                                                  .db KEXC_HEADER_END
+zndroid_launcher.asm:17  (0x00000E):                                                  appName:
+zndroid_launcher.asm:18  (0x00000E):                                                  .db "Zndroid", 0
+zndroid_launcher.asm:21  (0x000016):                                                  .equ GRID_COLS 4
+zndroid_launcher.asm:22  (0x000016):                                                  .equ GRID_TOP_Y 10
+zndroid_launcher.asm:23  (0x000016):                                                  .equ MAX_APPS 16
+zndroid_launcher.asm:24  (0x000016):                                                  .equ NAME_SLOT_SIZE 16
+zndroid_launcher.asm:27  (0x000016):                                                  cursorIndex:  .db 0
+zndroid_launcher.asm:27  (0x000016):                                                  .db 0
+zndroid_launcher.asm:28  (0x000017):                                                  numApps:      .db 0
+zndroid_launcher.asm:28  (0x000017):                                                  .db 0
+zndroid_launcher.asm:31  (0x000018):                                                  slot00: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:31  (0x000018):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:32  (0x000028):                                                  slot01: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:32  (0x000028):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:33  (0x000038):                                                  slot02: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:33  (0x000038):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:34  (0x000048):                                                  slot03: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:34  (0x000048):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:35  (0x000058):                                                  slot04: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:35  (0x000058):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:36  (0x000068):                                                  slot05: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:36  (0x000068):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:37  (0x000078):                                                  slot06: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:37  (0x000078):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:38  (0x000088):                                                  slot07: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:38  (0x000088):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:39  (0x000098):                                                  slot08: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:39  (0x000098):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:40  (0x0000A8):                                                  slot09: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:40  (0x0000A8):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:41  (0x0000B8):                                                  slot10: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:41  (0x0000B8):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:42  (0x0000C8):                                                  slot11: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:42  (0x0000C8):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:43  (0x0000D8):                                                  slot12: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:43  (0x0000D8):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:44  (0x0000E8):                                                  slot13: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:44  (0x0000E8):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:45  (0x0000F8):                                                  slot14: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:45  (0x0000F8):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:46  (0x000108):                                                  slot15: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:46  (0x000108):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:49  (0x000118):                                                  launchBuf:
+zndroid_launcher.asm:50  (0x000118):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:51  (0x000128):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:52  (0x000138):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:53  (0x000148):                                                  .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+zndroid_launcher.asm:56  (0x000158):                                                  start:
+zndroid_launcher.asm:57  (0x000158):                                                  pcall(getLcdLock)
+zndroid_launcher.asm:57  (0x000158):                                                  .if getLcdLock & 0xFF
+zndroid_launcher.asm:57  (0x000158):                                                  .else
+zndroid_launcher.asm:57  (0x000158): CD 88 3F                                           call 0x4000 - (((getLcdLock >> 8) + 1) * 3)
+zndroid_launcher.asm:57  (0x00015B):                                                  .endif
+zndroid_launcher.asm:58  (0x00015B):                                                  pcall(getKeypadLock)
+zndroid_launcher.asm:58  (0x00015B):                                                  .if getKeypadLock & 0xFF
+zndroid_launcher.asm:58  (0x00015B):                                                  .else
+zndroid_launcher.asm:58  (0x00015B): CD 85 3F                                           call 0x4000 - (((getKeypadLock >> 8) + 1) * 3)
+zndroid_launcher.asm:58  (0x00015E):                                                  .endif
+zndroid_launcher.asm:59  (0x00015E):                                                  pcall(allocScreenBuffer)
+zndroid_launcher.asm:59  (0x00015E):                                                  .if allocScreenBuffer & 0xFF
+zndroid_launcher.asm:59  (0x00015E):                                                  .else
+zndroid_launcher.asm:59  (0x00015E): CD 19 3F                                           call 0x4000 - (((allocScreenBuffer >> 8) + 1) * 3)
+zndroid_launcher.asm:59  (0x000161):                                                  .endif
+zndroid_launcher.asm:61  (0x000161): CD 97 02                                           call loadPackageList
+zndroid_launcher.asm:63  (0x000164): AF                                                 xor a
+zndroid_launcher.asm:64  (0x000165): 32 16 00                                           ld (cursorIndex), a
+zndroid_launcher.asm:66  (0x000168):                                                  mainLoop:
+zndroid_launcher.asm:67  (0x000168):                                                  pcall(clearBuffer)
+zndroid_launcher.asm:67  (0x000168):                                                  .if clearBuffer & 0xFF
+zndroid_launcher.asm:67  (0x000168):                                                  .else
+zndroid_launcher.asm:67  (0x000168): CD 13 3F                                           call 0x4000 - (((clearBuffer >> 8) + 1) * 3)
+zndroid_launcher.asm:67  (0x00016B):                                                  .endif
+zndroid_launcher.asm:68  (0x00016B): CD 02 02                                           call drawTitle
+zndroid_launcher.asm:69  (0x00016E): CD 16 02                                           call drawAppNames
+zndroid_launcher.asm:70  (0x000171): CD 5B 02                                           call drawCursorHighlight
+zndroid_launcher.asm:71  (0x000174):                                                  pcall(fastCopy)
+zndroid_launcher.asm:71  (0x000174):                                                  .if fastCopy & 0xFF
+zndroid_launcher.asm:71  (0x000174):                                                  .else
+zndroid_launcher.asm:71  (0x000174): CD 91 3F                                           call 0x4000 - (((fastCopy >> 8) + 1) * 3)
+zndroid_launcher.asm:71  (0x000177):                                                  .endif
+zndroid_launcher.asm:73  (0x000177):                                                  readInput:
+zndroid_launcher.asm:74  (0x000177):                                                  pcall(flushKeys)
+zndroid_launcher.asm:74  (0x000177):                                                  .if flushKeys & 0xFF
+zndroid_launcher.asm:74  (0x000177):                                                  .else
+zndroid_launcher.asm:74  (0x000177): CD 94 3F                                           call 0x4000 - (((flushKeys >> 8) + 1) * 3)
+zndroid_launcher.asm:74  (0x00017A):                                                  .endif
+zndroid_launcher.asm:75  (0x00017A):                                                  pcall(waitKey)
+zndroid_launcher.asm:75  (0x00017A):                                                  .if waitKey & 0xFF
+zndroid_launcher.asm:75  (0x00017A):                                                  .else
+zndroid_launcher.asm:75  (0x00017A): CD 9A 3F                                           call 0x4000 - (((waitKey >> 8) + 1) * 3)
+zndroid_launcher.asm:75  (0x00017D):                                                  .endif
+zndroid_launcher.asm:76  (0x00017D): FE 03                                              cp kRight
+zndroid_launcher.asm:77  (0x00017F): CA B6 01                                           jp z, moveRight
+zndroid_launcher.asm:78  (0x000182): FE 02                                              cp kLeft
+zndroid_launcher.asm:79  (0x000184): CA CA 01                                           jp z, moveLeft
+zndroid_launcher.asm:80  (0x000187): FE 01                                              cp kDown
+zndroid_launcher.asm:81  (0x000189): CA DD 01                                           jp z, moveDown
+zndroid_launcher.asm:82  (0x00018C): FE 04                                              cp kUp
+zndroid_launcher.asm:83  (0x00018E): CA F4 01                                           jp z, moveUp
+zndroid_launcher.asm:84  (0x000191): FE 09                                              cp kEnter
+zndroid_launcher.asm:85  (0x000193): CA A2 01                                           jp z, launchSelected
+zndroid_launcher.asm:86  (0x000196): FE 37                                              cp kMode
+zndroid_launcher.asm:87  (0x000198): CA 9E 01                                           jp z, exitLauncher
+zndroid_launcher.asm:88  (0x00019B): C3 77 01                                           jp readInput
+zndroid_launcher.asm:90  (0x00019E):                                                  exitLauncher:
+zndroid_launcher.asm:91  (0x00019E):                                                  pcall(freeScreenBuffer)
+zndroid_launcher.asm:91  (0x00019E):                                                  .if freeScreenBuffer & 0xFF
+zndroid_launcher.asm:91  (0x00019E):                                                  .else
+zndroid_launcher.asm:91  (0x00019E): CD 16 3F                                           call 0x4000 - (((freeScreenBuffer >> 8) + 1) * 3)
+zndroid_launcher.asm:91  (0x0001A1):                                                  .endif
+zndroid_launcher.asm:92  (0x0001A1): C9                                                 ret
+zndroid_launcher.asm:94  (0x0001A2):                                                  launchSelected:
+zndroid_launcher.asm:95  (0x0001A2): 3A 17 00                                           ld a, (numApps)
+zndroid_launcher.asm:96  (0x0001A5): B7                                                 or a
+zndroid_launcher.asm:97  (0x0001A6): CA 68 01                                           jp z, mainLoop
+zndroid_launcher.asm:98  (0x0001A9): CD E1 02                                           call execSelectedPackage
+zndroid_launcher.asm:99  (0x0001AC): CD 97 02                                           call loadPackageList
+zndroid_launcher.asm:100 (0x0001AF): AF                                                 xor a
+zndroid_launcher.asm:101 (0x0001B0): 32 16 00                                           ld (cursorIndex), a
+zndroid_launcher.asm:102 (0x0001B3): C3 68 01                                           jp mainLoop
+zndroid_launcher.asm:107 (0x0001B6):                                                  moveRight:
+zndroid_launcher.asm:108 (0x0001B6): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:109 (0x0001B9): E6 03                                              and GRID_COLS - 1
+zndroid_launcher.asm:110 (0x0001BB): FE 03                                              cp GRID_COLS - 1
+zndroid_launcher.asm:111 (0x0001BD): D2 68 01                                           jp nc, mainLoop
+zndroid_launcher.asm:112 (0x0001C0): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:113 (0x0001C3): 3C                                                 inc a
+zndroid_launcher.asm:114 (0x0001C4): 32 16 00                                           ld (cursorIndex), a
+zndroid_launcher.asm:115 (0x0001C7): C3 68 01                                           jp mainLoop
+zndroid_launcher.asm:117 (0x0001CA):                                                  moveLeft:
+zndroid_launcher.asm:118 (0x0001CA): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:119 (0x0001CD): E6 03                                              and GRID_COLS - 1
+zndroid_launcher.asm:120 (0x0001CF): B7                                                 or a
+zndroid_launcher.asm:121 (0x0001D0): CA 68 01                                           jp z, mainLoop
+zndroid_launcher.asm:122 (0x0001D3): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:123 (0x0001D6): 3D                                                 dec a
+zndroid_launcher.asm:124 (0x0001D7): 32 16 00                                           ld (cursorIndex), a
+zndroid_launcher.asm:125 (0x0001DA): C3 68 01                                           jp mainLoop
+zndroid_launcher.asm:127 (0x0001DD):                                                  moveDown:
+zndroid_launcher.asm:128 (0x0001DD): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:129 (0x0001E0): C6 04                                              add a, GRID_COLS
+zndroid_launcher.asm:130 (0x0001E2): 47                                                 ld b, a
+zndroid_launcher.asm:131 (0x0001E3): 3A 17 00                                           ld a, (numApps)
+zndroid_launcher.asm:132 (0x0001E6): B8                                                 cp b
+zndroid_launcher.asm:133 (0x0001E7): DA 68 01                                           jp c, mainLoop
+zndroid_launcher.asm:134 (0x0001EA): CA 68 01                                           jp z, mainLoop
+zndroid_launcher.asm:135 (0x0001ED): 78                                                 ld a, b
+zndroid_launcher.asm:136 (0x0001EE): 32 16 00                                           ld (cursorIndex), a
+zndroid_launcher.asm:137 (0x0001F1): C3 68 01                                           jp mainLoop
+zndroid_launcher.asm:139 (0x0001F4):                                                  moveUp:
+zndroid_launcher.asm:140 (0x0001F4): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:141 (0x0001F7): D6 04                                              sub GRID_COLS
+zndroid_launcher.asm:142 (0x0001F9): DA 68 01                                           jp c, mainLoop
+zndroid_launcher.asm:143 (0x0001FC): 32 16 00                                           ld (cursorIndex), a
+zndroid_launcher.asm:144 (0x0001FF): C3 68 01                                           jp mainLoop
+zndroid_launcher.asm:149 (0x000202):                                                  drawTitle:
+zndroid_launcher.asm:150 (0x000202):                                                  kld(hl, titleStr)
+zndroid_launcher.asm:150 (0x000202): CF                                                 rst rkcall
+zndroid_launcher.asm:150 (0x000203): 21 0E 02                                           ld hl, titleStr
+zndroid_launcher.asm:151 (0x000206): 16 00                                              ld d, 0
+zndroid_launcher.asm:152 (0x000208): 1E 00                                              ld e, 0
+zndroid_launcher.asm:153 (0x00020A):                                                  pcall(drawStr)
+zndroid_launcher.asm:153 (0x00020A):                                                  .if drawStr & 0xFF
+zndroid_launcher.asm:153 (0x00020A): E7                                                 rst rpcall
+zndroid_launcher.asm:153 (0x00020B):                                                  .dw drawStr
+zndroid_launcher.asm:153 (0x00020D):                                                  .else
+zndroid_launcher.asm:153 (0x00020D):                                                  .endif
+zndroid_launcher.asm:154 (0x00020D): C9                                                 ret
+zndroid_launcher.asm:156 (0x00020E):                                                  titleStr:
+zndroid_launcher.asm:157 (0x00020E):                                                  .db "Zndroid", 0
+zndroid_launcher.asm:162 (0x000216):                                                  drawAppNames:
+zndroid_launcher.asm:163 (0x000216): 3A 17 00                                           ld a, (numApps)
+zndroid_launcher.asm:164 (0x000219): B7                                                 or a
+zndroid_launcher.asm:165 (0x00021A): C8                                                 ret z
+zndroid_launcher.asm:167 (0x00021B): 06 00                                              ld b, 0
+zndroid_launcher.asm:168 (0x00021D):                                                  .drawLoop:
+zndroid_launcher.asm:169 (0x00021D): 78                                                 ld a, b
+zndroid_launcher.asm:170 (0x00021E): FE 10                                              cp MAX_APPS
+zndroid_launcher.asm:171 (0x000220): D0                                                 ret nc
+zndroid_launcher.asm:173 (0x000221): C5                                                 push bc
+zndroid_launcher.asm:176 (0x000222): 78                                                 ld a, b
+zndroid_launcher.asm:177 (0x000223): E6 03                                              and 3
+zndroid_launcher.asm:178 (0x000225): 6F                                                 ld l, a
+zndroid_launcher.asm:179 (0x000226): 26 00                                              ld h, 0
+zndroid_launcher.asm:180 (0x000228): 29                                                 add hl, hl
+zndroid_launcher.asm:181 (0x000229): 29                                                 add hl, hl
+zndroid_launcher.asm:182 (0x00022A): 29                                                 add hl, hl
+zndroid_launcher.asm:183 (0x00022B): E5                                                 push hl
+zndroid_launcher.asm:184 (0x00022C): 29                                                 add hl, hl
+zndroid_launcher.asm:185 (0x00022D): D1                                                 pop de
+zndroid_launcher.asm:186 (0x00022E): 19                                                 add hl, de
+zndroid_launcher.asm:187 (0x00022F): 55                                                 ld d, l
+zndroid_launcher.asm:190 (0x000230): 78                                                 ld a, b
+zndroid_launcher.asm:191 (0x000231): CB 3F                                              srl a
+zndroid_launcher.asm:192 (0x000233): CB 3F                                              srl a
+zndroid_launcher.asm:193 (0x000235): 6F                                                 ld l, a
+zndroid_launcher.asm:194 (0x000236): 26 00                                              ld h, 0
+zndroid_launcher.asm:195 (0x000238): 29                                                 add hl, hl
+zndroid_launcher.asm:196 (0x000239): 29                                                 add hl, hl
+zndroid_launcher.asm:197 (0x00023A): 29                                                 add hl, hl
+zndroid_launcher.asm:198 (0x00023B): E5                                                 push hl
+zndroid_launcher.asm:199 (0x00023C): 29                                                 add hl, hl
+zndroid_launcher.asm:200 (0x00023D): D1                                                 pop de
+zndroid_launcher.asm:201 (0x00023E): 19                                                 add hl, de
+zndroid_launcher.asm:202 (0x00023F): 7D                                                 ld a, l
+zndroid_launcher.asm:203 (0x000240): C6 0A                                              add a, GRID_TOP_Y
+zndroid_launcher.asm:204 (0x000242): 5F                                                 ld e, a
+zndroid_launcher.asm:207 (0x000243): 78                                                 ld a, b
+zndroid_launcher.asm:208 (0x000244): 6F                                                 ld l, a
+zndroid_launcher.asm:209 (0x000245): 26 00                                              ld h, 0
+zndroid_launcher.asm:210 (0x000247): 29                                                 add hl, hl
+zndroid_launcher.asm:211 (0x000248): 29                                                 add hl, hl
+zndroid_launcher.asm:212 (0x000249): 29                                                 add hl, hl
+zndroid_launcher.asm:213 (0x00024A): 29                                                 add hl, hl
+zndroid_launcher.asm:214 (0x00024B): 11 18 00                                           ld de, slot00
+zndroid_launcher.asm:215 (0x00024E): 19                                                 add hl, de
+zndroid_launcher.asm:217 (0x00024F): 7E                                                 ld a, (hl)
+zndroid_launcher.asm:218 (0x000250): B7                                                 or a
+zndroid_launcher.asm:219 (0x000251): 28 03                                              jr z, .skip
+zndroid_launcher.asm:221 (0x000253):                                                  pcall(drawStr)
+zndroid_launcher.asm:221 (0x000253):                                                  .if drawStr & 0xFF
+zndroid_launcher.asm:221 (0x000253): E7                                                 rst rpcall
+zndroid_launcher.asm:221 (0x000254):                                                  .dw drawStr
+zndroid_launcher.asm:221 (0x000256):                                                  .else
+zndroid_launcher.asm:221 (0x000256):                                                  .endif
+zndroid_launcher.asm:223 (0x000256):                                                  .skip:
+zndroid_launcher.asm:224 (0x000256): C1                                                 pop bc
+zndroid_launcher.asm:225 (0x000257): 04                                                 inc b
+zndroid_launcher.asm:226 (0x000258): C3 1D 02                                           jp .drawLoop
+zndroid_launcher.asm:231 (0x00025B):                                                  drawCursorHighlight:
+zndroid_launcher.asm:232 (0x00025B): 3A 17 00                                           ld a, (numApps)
+zndroid_launcher.asm:233 (0x00025E): B7                                                 or a
+zndroid_launcher.asm:234 (0x00025F): C8                                                 ret z
+zndroid_launcher.asm:237 (0x000260): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:238 (0x000263): E6 03                                              and 3
+zndroid_launcher.asm:239 (0x000265): 6F                                                 ld l, a
+zndroid_launcher.asm:240 (0x000266): 26 00                                              ld h, 0
+zndroid_launcher.asm:241 (0x000268): 29                                                 add hl, hl
+zndroid_launcher.asm:242 (0x000269): 29                                                 add hl, hl
+zndroid_launcher.asm:243 (0x00026A): 29                                                 add hl, hl
+zndroid_launcher.asm:244 (0x00026B): E5                                                 push hl
+zndroid_launcher.asm:245 (0x00026C): 29                                                 add hl, hl
+zndroid_launcher.asm:246 (0x00026D): D1                                                 pop de
+zndroid_launcher.asm:247 (0x00026E): 19                                                 add hl, de
+zndroid_launcher.asm:248 (0x00026F): 55                                                 ld d, l
+zndroid_launcher.asm:250 (0x000270): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:251 (0x000273): CB 3F                                              srl a
+zndroid_launcher.asm:252 (0x000275): CB 3F                                              srl a
+zndroid_launcher.asm:253 (0x000277): 6F                                                 ld l, a
+zndroid_launcher.asm:254 (0x000278): 26 00                                              ld h, 0
+zndroid_launcher.asm:255 (0x00027A): 29                                                 add hl, hl
+zndroid_launcher.asm:256 (0x00027B): 29                                                 add hl, hl
+zndroid_launcher.asm:257 (0x00027C): 29                                                 add hl, hl
+zndroid_launcher.asm:258 (0x00027D): E5                                                 push hl
+zndroid_launcher.asm:259 (0x00027E): 29                                                 add hl, hl
+zndroid_launcher.asm:260 (0x00027F): D1                                                 pop de
+zndroid_launcher.asm:261 (0x000280): 19                                                 add hl, de
+zndroid_launcher.asm:262 (0x000281): 7D                                                 ld a, l
+zndroid_launcher.asm:263 (0x000282): C6 0A                                              add a, GRID_TOP_Y
+zndroid_launcher.asm:264 (0x000284): 5F                                                 ld e, a
+zndroid_launcher.asm:267 (0x000285): 06 12                                              ld b, 18
+zndroid_launcher.asm:268 (0x000287):                                                  .hlRow:
+zndroid_launcher.asm:269 (0x000287): C5                                                 push bc
+zndroid_launcher.asm:270 (0x000288): D5                                                 push de
+zndroid_launcher.asm:271 (0x000289): 06 16                                              ld b, 22
+zndroid_launcher.asm:272 (0x00028B):                                                  .hlCol:
+zndroid_launcher.asm:273 (0x00028B):                                                  pcall(invertPixel)
+zndroid_launcher.asm:273 (0x00028B):                                                  .if invertPixel & 0xFF
+zndroid_launcher.asm:273 (0x00028B): E7                                                 rst rpcall
+zndroid_launcher.asm:273 (0x00028C):                                                  .dw invertPixel
+zndroid_launcher.asm:273 (0x00028E):                                                  .else
+zndroid_launcher.asm:273 (0x00028E):                                                  .endif
+zndroid_launcher.asm:274 (0x00028E): 14                                                 inc d
+zndroid_launcher.asm:275 (0x00028F): 10 FA                                              djnz .hlCol
+zndroid_launcher.asm:276 (0x000291): D1                                                 pop de
+zndroid_launcher.asm:277 (0x000292): 1C                                                 inc e
+zndroid_launcher.asm:278 (0x000293): C1                                                 pop bc
+zndroid_launcher.asm:279 (0x000294): 10 F1                                              djnz .hlRow
+zndroid_launcher.asm:280 (0x000296): C9                                                 ret
+zndroid_launcher.asm:285 (0x000297):                                                  loadPackageList:
+zndroid_launcher.asm:286 (0x000297): AF                                                 xor a
+zndroid_launcher.asm:287 (0x000298): 32 17 00                                           ld (numApps), a
+zndroid_launcher.asm:289 (0x00029B):                                                  kld(de, binPath)
+zndroid_launcher.asm:289 (0x00029B): CF                                                 rst rkcall
+zndroid_launcher.asm:289 (0x00029C): 11 A7 02                                           ld de, binPath
+zndroid_launcher.asm:290 (0x00029F):                                                  kld(hl, dirCallback)
+zndroid_launcher.asm:290 (0x00029F): CF                                                 rst rkcall
+zndroid_launcher.asm:290 (0x0002A0): 21 AC 02                                           ld hl, dirCallback
+zndroid_launcher.asm:291 (0x0002A3):                                                  pcall(listDirectory)
+zndroid_launcher.asm:291 (0x0002A3):                                                  .if listDirectory & 0xFF
+zndroid_launcher.asm:291 (0x0002A3):                                                  .else
+zndroid_launcher.asm:291 (0x0002A3): CD 40 3F                                           call 0x4000 - (((listDirectory >> 8) + 1) * 3)
+zndroid_launcher.asm:291 (0x0002A6):                                                  .endif
+zndroid_launcher.asm:292 (0x0002A6): C9                                                 ret
+zndroid_launcher.asm:294 (0x0002A7):                                                  binPath:
+zndroid_launcher.asm:295 (0x0002A7):                                                  .db "/bin", 0
+zndroid_launcher.asm:305 (0x0002AC):                                                  dirCallback:
+zndroid_launcher.asm:306 (0x0002AC): FE 7F                                              cp fsFile
+zndroid_launcher.asm:307 (0x0002AE): C0                                                 ret nz
+zndroid_launcher.asm:309 (0x0002AF): F5                                                 push af
+zndroid_launcher.asm:310 (0x0002B0): C5                                                 push bc
+zndroid_launcher.asm:311 (0x0002B1): D5                                                 push de
+zndroid_launcher.asm:312 (0x0002B2): E5                                                 push hl
+zndroid_launcher.asm:314 (0x0002B3): 3A 17 00                                           ld a, (numApps)
+zndroid_launcher.asm:315 (0x0002B6): FE 10                                              cp MAX_APPS
+zndroid_launcher.asm:316 (0x0002B8): D2 DC 02                                           jp nc, .done
+zndroid_launcher.asm:318 (0x0002BB): 4F                                                 ld c, a
+zndroid_launcher.asm:321 (0x0002BC): 26 00                                              ld h, 0
+zndroid_launcher.asm:322 (0x0002BE): 69                                                 ld l, c
+zndroid_launcher.asm:323 (0x0002BF): 29                                                 add hl, hl
+zndroid_launcher.asm:324 (0x0002C0): 29                                                 add hl, hl
+zndroid_launcher.asm:325 (0x0002C1): 29                                                 add hl, hl
+zndroid_launcher.asm:326 (0x0002C2): 29                                                 add hl, hl
+zndroid_launcher.asm:327 (0x0002C3): 11 18 00                                           ld de, slot00
+zndroid_launcher.asm:328 (0x0002C6): 19                                                 add hl, de
+zndroid_launcher.asm:333 (0x0002C7): 11 C0 84                                           ld de, 0x84C0
+zndroid_launcher.asm:335 (0x0002CA): 06 0F                                              ld b, 15
+zndroid_launcher.asm:336 (0x0002CC):                                                  .copyLoop:
+zndroid_launcher.asm:337 (0x0002CC): 1A                                                 ld a, (de)
+zndroid_launcher.asm:338 (0x0002CD): 77                                                 ld (hl), a
+zndroid_launcher.asm:339 (0x0002CE): B7                                                 or a
+zndroid_launcher.asm:340 (0x0002CF): 28 06                                              jr z, .copyDone
+zndroid_launcher.asm:341 (0x0002D1): 13                                                 inc de
+zndroid_launcher.asm:342 (0x0002D2): 23                                                 inc hl
+zndroid_launcher.asm:343 (0x0002D3): 10 F7                                              djnz .copyLoop
+zndroid_launcher.asm:344 (0x0002D5): AF                                                 xor a
+zndroid_launcher.asm:345 (0x0002D6): 77                                                 ld (hl), a
+zndroid_launcher.asm:346 (0x0002D7):                                                  .copyDone:
+zndroid_launcher.asm:348 (0x0002D7): 79                                                 ld a, c
+zndroid_launcher.asm:349 (0x0002D8): 3C                                                 inc a
+zndroid_launcher.asm:350 (0x0002D9): 32 17 00                                           ld (numApps), a
+zndroid_launcher.asm:352 (0x0002DC):                                                  .done:
+zndroid_launcher.asm:353 (0x0002DC): E1                                                 pop hl
+zndroid_launcher.asm:354 (0x0002DD): D1                                                 pop de
+zndroid_launcher.asm:355 (0x0002DE): C1                                                 pop bc
+zndroid_launcher.asm:356 (0x0002DF): F1                                                 pop af
+zndroid_launcher.asm:357 (0x0002E0): C9                                                 ret
+zndroid_launcher.asm:362 (0x0002E1):                                                  execSelectedPackage:
+zndroid_launcher.asm:363 (0x0002E1): 3A 17 00                                           ld a, (numApps)
+zndroid_launcher.asm:364 (0x0002E4): B7                                                 or a
+zndroid_launcher.asm:365 (0x0002E5): C8                                                 ret z
+zndroid_launcher.asm:368 (0x0002E6): 21 18 01                                           ld hl, launchBuf
+zndroid_launcher.asm:369 (0x0002E9): 11 16 03                                           ld de, binSlash
+zndroid_launcher.asm:370 (0x0002EC): 01 05 00                                           ld bc, 5
+zndroid_launcher.asm:371 (0x0002EF): ED B0                                              ldir
+zndroid_launcher.asm:374 (0x0002F1): 3A 16 00                                           ld a, (cursorIndex)
+zndroid_launcher.asm:375 (0x0002F4): 6F                                                 ld l, a
+zndroid_launcher.asm:376 (0x0002F5): 26 00                                              ld h, 0
+zndroid_launcher.asm:377 (0x0002F7): 29                                                 add hl, hl
+zndroid_launcher.asm:378 (0x0002F8): 29                                                 add hl, hl
+zndroid_launcher.asm:379 (0x0002F9): 29                                                 add hl, hl
+zndroid_launcher.asm:380 (0x0002FA): 29                                                 add hl, hl
+zndroid_launcher.asm:381 (0x0002FB): 11 18 00                                           ld de, slot00
+zndroid_launcher.asm:382 (0x0002FE): 19                                                 add hl, de
+zndroid_launcher.asm:384 (0x0002FF): 11 1D 01                                           ld de, launchBuf + 5
+zndroid_launcher.asm:385 (0x000302): 06 0F                                              ld b, 15
+zndroid_launcher.asm:386 (0x000304):                                                  .appendLoop:
+zndroid_launcher.asm:387 (0x000304): 7E                                                 ld a, (hl)
+zndroid_launcher.asm:388 (0x000305): 12                                                 ld (de), a
+zndroid_launcher.asm:389 (0x000306): B7                                                 or a
+zndroid_launcher.asm:390 (0x000307): 28 06                                              jr z, .appendDone
+zndroid_launcher.asm:391 (0x000309): 23                                                 inc hl
+zndroid_launcher.asm:392 (0x00030A): 13                                                 inc de
+zndroid_launcher.asm:393 (0x00030B): 10 F7                                              djnz .appendLoop
+zndroid_launcher.asm:394 (0x00030D): AF                                                 xor a
+zndroid_launcher.asm:395 (0x00030E): 12                                                 ld (de), a
+zndroid_launcher.asm:396 (0x00030F):                                                  .appendDone:
+zndroid_launcher.asm:398 (0x00030F): 11 18 01                                           ld de, launchBuf
+zndroid_launcher.asm:399 (0x000312):                                                  pcall(launchProgram)
+zndroid_launcher.asm:399 (0x000312):                                                  .if launchProgram & 0xFF
+zndroid_launcher.asm:399 (0x000312):                                                  .else
+zndroid_launcher.asm:399 (0x000312): CD D3 3F                                           call 0x4000 - (((launchProgram >> 8) + 1) * 3)
+zndroid_launcher.asm:399 (0x000315):                                                  .endif
+zndroid_launcher.asm:400 (0x000315): C9                                                 ret
+zndroid_launcher.asm:402 (0x000316):                                                  binSlash:
+zndroid_launcher.asm:403 (0x000316):                                                  .db "/bin/", 0
